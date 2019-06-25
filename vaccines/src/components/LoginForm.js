@@ -15,9 +15,11 @@ const LoginForm = props => {
   const [password, setPassword] = useState("");
 
   return (
-    <Container style={{ height: "100vh" }} verticalAlign="middle">
-    <Header as='h2' color='teal' textAlign='center'>Log In</Header>
-      
+    <Container style={{ height: "100vh" }}>
+      <Header as="h2" color="teal" textAlign="center">
+        Log In
+      </Header>
+
       <Form
         size="large"
         onSubmit={e => {
@@ -47,7 +49,9 @@ const LoginForm = props => {
           onChange={e => setPassword(e.target.value)}
           value={password}
         />
-        <Button type="submit" fluid size='large'>Login</Button>
+        <Button type="submit" fluid size="large">
+          Login
+        </Button>
       </Form>
     </Container>
   );

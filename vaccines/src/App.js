@@ -1,9 +1,9 @@
-import { hot } from "react-hot-loader/root";
-import React, { Fragment, useEffect, useState } from "react";
-import LoginForm from "./components/LoginForm";
-import "./App.css";
-import { connect } from "react-redux";
-import { Route, Redirect, withRouter } from "react-router-dom";
+import { hot } from 'react-hot-loader/root';
+import React, { Fragment, useEffect, useState } from 'react';
+import LoginForm from './components/LoginForm';
+import './App.css';
+import { connect } from 'react-redux';
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import {
   fetchPatients,
   savePatient,
@@ -12,11 +12,11 @@ import {
   login,
   loadToken,
   logOut
-} from "./actions";
-import Navigation from "./components/Navigation";
-import PatientsList from "./components/PatientsList";
-import "./assets/fomantic/dist/semantic.css";
-import { Container, Button } from "semantic-ui-react";
+} from './actions';
+import Navigation from './components/Navigation';
+import PatientsList from './components/PatientsList';
+import './assets/fomantic/dist/semantic.css';
+import { Container, Button } from 'semantic-ui-react';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -25,7 +25,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
       rest.loggedIn ? (
         <Component {...props} {...rest} />
       ) : (
-        <Redirect to="/login" />
+        <Redirect to='/login' />
       )
     }
   />
@@ -36,7 +36,7 @@ export const App = props => {
 
   useEffect(() => {
     if (!initialized) {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem('token');
       if (token && !props.token) {
         props.loadToken(token);
       }
@@ -46,18 +46,18 @@ export const App = props => {
 
   return (
     <Container>
-      <Route path="/" component={Navigation} />
+      <Route path='/' component={Navigation} />
       <Route
-        path="/login"
+        path='/login'
         render={() => (
           <Fragment>
-            {props.loggedIn && <Redirect to="/patients" />}
+            {props.loggedIn && <Redirect to='/patients' />}
             <LoginForm onSubmit={props.login} />
           </Fragment>
         )}
       />
       <PrivateRoute
-        path="/patients"
+        path='/patients'
         component={PatientsList}
         patients={props.patients}
         fetchingPatients={props.fetchingPatients}
@@ -68,12 +68,12 @@ export const App = props => {
       />
       <Route
         exact
-        path="/"
+        path='/'
         render={() =>
           props.loggedIn ? (
-            <Redirect to="/patients" />
+            <Redirect to='/patients' />
           ) : (
-            <Redirect to="/login" />
+            <Redirect to='/login' />
           )
         }
       />
@@ -82,7 +82,7 @@ export const App = props => {
           onClick={() => {
             localStorage.clear();
             props.logOut();
-            props.history.push("/");
+            props.history.push('/');
           }}
         >
           Log Out

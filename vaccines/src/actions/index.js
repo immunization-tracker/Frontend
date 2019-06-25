@@ -36,24 +36,24 @@ export const loadToken = t => {
 export const login = credentials => dispatch => {
   dispatch({ type: LOGIN });
   return axios
-    .post('http://localhost:5000/api/login', credentials)
+    .post('https://immu-tracker2.herokuapp.com/api/staff/login', credentials)
     .then(res => {
-      localStorage.setItem('token', res.data.payload);
+      localStorage.setItem('token', res.data.token);
       axiosWithAuth = () =>
         axios.create({
           headers: {
             'Content-Type': 'application/json',
-            authorization: `${res.data.payload}`
+            authorization: `${res.data.token}`
           }
         });
-      dispatch({ type: LOGIN_SUCCESS, payload: res.data.payload });
+      dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
     });
 };
 
 export const fetchPatients = () => dispatch => {
   dispatch({ type: FETCH_PATIENTS });
   return axiosWithAuth()
-    .get('http://localhost:5000/api/patients')
+    .get('https://immu-tracker2.herokuapp.com/api/records')
     .then(({ data }) =>
       dispatch({ type: FETCH_PATIENTS_SUCCESS, payload: data })
     )
@@ -81,7 +81,7 @@ export const updatePatient = patient => dispatch => {
 export const deletePatient = patient => dispatch => {
   dispatch({ type: DELETE_PATIENT });
   return axiosWithAuth()
-    .delete(`http://localhost:5000/api/patients/${patient.id}`)
+    .delete(`https://immu-tracker2.herokuapp.com/api/${patient.id}/records`)
     .then(({ data }) =>
       dispatch({ type: DELETE_PATIENT_SUCCESS, payload: data })
     )

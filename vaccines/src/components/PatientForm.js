@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Button, Header, Container } from "semantic-ui-react";
+import { Form, Button, Header, Container, Grid } from "semantic-ui-react";
 import styled from "styled-components";
 
 
@@ -11,7 +11,7 @@ const PatientForm = props => {
   const [gender, setGender] = useState("");
 
   return (
-    <Container style={{ height: "100vh" }} verticalAlign="middle">
+    <Container style={{ height: "100vh" }} >
       <Header as="h2" color="teal" textAlign="center">
         Add Patient
       </Header>
