@@ -8,22 +8,25 @@ import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import MainNav from "./Nav/MainNav";
 import Doctors from './Doctors/Doctors';
+//import Patients from './Patients/Patients';
 
 
 const App = () => {
   return (
-    <Container>
-      <Router>
+    
+      
+      <Container style={{ margin: 20 }}>
         <Route path="/" component={MainNav} />
         <Route exact path="/" component={Login} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/doctors" component={Doctors} />
-        <PrivateRoute exact path="/patients" component={PatientsList} />
-        <PrivateRoute exact path='/patients/new' component={PatientForm} />
+        {/*<PrivateRoute exact path="/patients" component={PatientsList} />*/}
+        {/*<PrivateRoute exact path='/patients/new' component={PatientForm} />*/}
           {/*<PrivateRoute exact path = '/patients/:id' component={ItemDetail} />*/}
           {/*<PrivateRoute exact path = '/patients/:id/edit' component={ItemEditForm} />*/}
-      </Router>
     </Container>
+
+    
     
   );
 };

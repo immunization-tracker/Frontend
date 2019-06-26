@@ -6,6 +6,7 @@
     "@use-hooks/axios": "^1.3.0",
     "axios": "^0.18.0",
     "concurrently": "^4.1.0",
+    "eslint-plugin-react-hooks": "^1.6.1",
     "fomantic-ui": "^2.7.6",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",

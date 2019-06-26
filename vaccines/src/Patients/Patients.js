@@ -6,7 +6,7 @@ import PatientForm from "./PatientForm";
 import Patient from "./Patient";
 import { Loader, Header, Card } from "semantic-ui-react";
 
-const PatientsList = props => {
+const Patients = props => {
 
 useEffect(() => {
     fetchPatients();
@@ -48,5 +48,5 @@ export default withRouter(
       deletePatient,
       savePatient
     }
-  )(PatientsList)
+  )(Patients)
 );
