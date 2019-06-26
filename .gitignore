@@ -19,4 +19,10 @@ yarn-debug.log*
 yarn-error.log*
 
 vaccines/src/assets/fomantic/dist
-vaccines/src/assets/fomantic/tasks
+vaccines/src/assets/fomantic/
+
+z_archived
+
+server.js
+start-client.js
+start-server.js
