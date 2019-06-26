@@ -20,9 +20,10 @@ const App = () => {
         <Route exact path="/" component={Login} />
         <Route exact path="/signup" component={SignUp} />
         <Route exact path="/doctors" component={Doctors} />
+{/*        <Route exact path = '/doctor/:id' component={ItemDetail} />*/}
         {/*<PrivateRoute exact path="/patients" component={PatientsList} />*/}
         {/*<PrivateRoute exact path='/patients/new' component={PatientForm} />*/}
-          {/*<PrivateRoute exact path = '/patients/:id' component={ItemDetail} />*/}
+ {/*       <PrivateRoute exact path = '/patients/:id' component={ItemDetail} />*/}
           {/*<PrivateRoute exact path = '/patients/:id/edit' component={ItemEditForm} />*/}
     </Container>
 
