@@ -8,6 +8,7 @@ import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import MainNav from "./Nav/MainNav";
 import Doctors from "./Doctors/Doctors";
+import DoctorsHome from "./Doctors/DoctorsHome";
 import Doctor from "./Doctors/Doctor";
 //import Patients from './Patients/Patients';
 
@@ -17,7 +18,7 @@ const App = () => {
       <Route path="/" component={MainNav} />
       <Route exact path="/" component={Login} />
       <Route path="/signup" component={SignUp} />
-      <Route path="/doctors" component={Doctors} />
+      <Route path="/doctors" component={DoctorsHome} />
       <Route exact path="/doctor/:id" component={Doctor} />
       {/*<PrivateRoute exact path="/patients" component={PatientsList} />*/}
       {/*<PrivateRoute exact path='/patients/new' component={PatientForm} />*/}
