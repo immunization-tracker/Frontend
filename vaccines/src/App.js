@@ -1,112 +1,32 @@
-import { hot } from 'react-hot-loader/root';
-import React, { Fragment, useEffect, useState } from 'react';
-import LoginForm from './components/LoginForm';
-import './App.css';
-import { connect } from 'react-redux';
-import { Route, Redirect, withRouter } from 'react-router-dom';
-import {
-  fetchPatients,
-  savePatient,
-  updatePatient,
-  deletePatient,
-  login,
-  loadToken,
-  logOut
-} from './actions';
-import Navigation from './components/Navigation';
-import PatientsList from './components/PatientsList';
+import React from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './assets/fomantic/dist/semantic.css';
-import { Container, Button } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
+import PrivateRoute from './PrivateRoute';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      rest.loggedIn ? (
-        <Component {...props} {...rest} />
-      ) : (
-        <Redirect to='/login' />
-      )
-    }
-  />
-);
+import Login from "./Login/Login";
+import SignUp from "./SignUp/SignUp";
+import MainNav from "./Nav/MainNav";
+import Doctors from './Doctors/Doctors';
 
-export const App = props => {
-  const [initialized, setInitialized] = useState(false);
 
-  useEffect(() => {
-    if (!initialized) {
-      const token = localStorage.getItem('token');
-      if (token && !props.token) {
-        props.loadToken(token);
-      }
-      setInitialized(true);
-    }
-  });
-
+const App = () => {
   return (
     <Container>
-      <Route path='/' component={Navigation} />
-      <Route
-        path='/login'
-        render={() => (
-          <Fragment>
-            {props.loggedIn && <Redirect to='/patients' />}
-            <LoginForm onSubmit={props.login} />
-          </Fragment>
-        )}
-      />
-      <PrivateRoute
-        path='/patients'
-        component={PatientsList}
-        patients={props.patients}
-        fetchingPatients={props.fetchingPatients}
-        fetchPatients={props.fetchPatients}
-        savePatient={props.savePatient}
-        loggedIn={props.loggedIn}
-        deletePatient={props.deletePatient}
-      />
-      <Route
-        exact
-        path='/'
-        render={() =>
-          props.loggedIn ? (
-            <Redirect to='/patients' />
-          ) : (
-            <Redirect to='/login' />
-          )
-        }
-      />
-      {props.loggedIn && (
-        <Button
-          onClick={() => {
-            localStorage.clear();
-            props.logOut();
-            props.history.push('/');
-          }}
-        >
-          Log Out
-        </Button>
-      )}
+      <Router>
+        <Route path="/" component={MainNav} />
+        <Route exact path="/" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/doctors" component={Doctors} />
+        <PrivateRoute exact path="/patients" component={PatientsList} />
+        <PrivateRoute exact path='/patients/new' component={PatientForm} />
+          {/*<PrivateRoute exact path = '/patients/:id' component={ItemDetail} />*/}
+          {/*<PrivateRoute exact path = '/patients/:id/edit' component={ItemEditForm} />*/}
+      </Router>
     </Container>
+    
   );
 };
 
-const mapStateToProps = state => ({
-  ...state.patients
-});
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    {
-      fetchPatients,
-      savePatient,
-      updatePatient,
-      deletePatient,
-      login,
-      loadToken,
-      logOut
-    }
-  )(hot(App))
-);
+export default App;
