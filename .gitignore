@@ -18,13 +18,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-vaccines/src/assets/fomantic/dist
-vaccines/src/assets/fomantic/tasksgit 
-vaccines/src/assets/fomantic/
+src/assets/fomantic/dist/
+src/assets/fomantic/tasks/
+src/assets/fomantic/
 
-z_archived
-
-server.js
-start-client.js
-start-server.js
+src/z_archived
 
