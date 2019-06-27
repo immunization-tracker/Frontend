@@ -1,66 +1,91 @@
 import AxiosAuth from "../AxiosAuth";
 import axios from "axios";
-import React, { Fragment, useState, useRef } from "react";
-import { Route, Redirect, withRouter } from "react-router-dom";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
 import useDataApi from "./useDataApi";
-import { Button, Form, Container, Header, Grid } from "semantic-ui-react";
+import { Button, Form, Container, Header } from "semantic-ui-react";
+
+const useFormHandler = initialState => {
+  const [values, setValues] = useState(initialState);
+
+  const handleChange = useCallback(
+    ({ target: { name, value } }) =>
+      setValues(prevState => ({ ...prevState, [name]: value })),
+    []
+  );
+
+  return {
+    handleChange,
+    values
+  };
+};
+
+
 
 const Login = () => {
+  const { values, handleChange } = useFormHandler({
+    username: "",
+    password: ""
+  });
+  const [{ data, isLoading, isError }, doFetch] = useDataApi({
+    res: []
+  });
+  const[body,setBody] =useState('');
+    const [url, setUrl] = useState('');
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.post(
+        url,
+        body
+      );
 
-  const [{ data, isLoading, isError, setLoggedIn,logins }, doFetch] = useDataApi(
-    logins,
-    {
-      res: []
-    }
-  );
-  const nameRef = useRef();
-  const passRef = useRef();
-  const submitButton = () =>
-        logins({ username: nameRef.current.value, password: passRef.current.value });
+      localStorage.setItem("Token", result.data.token);
+      console.log(result);
+    };
+
+    fetchData();
+  }, [body]);
+  
+  const handleSubmit = e => {
+    e.preventDefault();
+    const formProps = { ...values };
+    setBody(formProps);
+    setUrl('"https://immu-tracker2.herokuapp.com/api/staff/login"');
+    //setBody(JSON.stringify(formProps, null, 4));
+    doFetch(body);
+  };
 
   return (
-    <Grid style={{ height: "100vh" }}>
-      <Grid.Column style={{ maxWidth: 450 }}>
-        <Header as="h2" color="teal" textAlign="center">
-          Log In
-        </Header>
+    <Container style={{ height: "100vh" }}>
+      <Header as="h2" color="teal" textAlign="center">
+        Log In
+      </Header>
 
-        <Form
-          size="large"
-          onSubmit={event => {
-            submitButton();
-            doFetch();
-            event.preventDefault();
-          }}
-        >
-          <Form.Input
-            fluid
-            icon="user"
-            iconPosition="left"
-            type="text"
-            placeholder="username"
-            name="username"
-            //onChange={e => setUsername(e.target.value)}
-            //value={logins.username}
-            ref={nameRef}
-          />
-          <Form.Input
-            fluid
-            icon="lock"
-            iconPosition="left"
-            type="password"
-            placeholder="password"
-            name="password"
-            //onChange={e => setPassword(e.target.value)}
-            //value={logins.password}
-            ref={passRef}
-          />
-          <Button type="submit" fluid size="large">
-            Login
-          </Button>
-        </Form>
-      </Grid.Column>
-    </Grid>
+      <Form size="large" onSubmit={handleSubmit}>
+        <Form.Input
+          fluid
+          icon="user"
+          iconPosition="left"
+          type="text"
+          placeholder="uccsername"
+          name="username"
+          onChange={handleChange}
+          value={values.username}
+        />
+        <Form.Input
+          fluid
+          icon="lock"
+          iconPosition="left"
+          type="password"
+          placeholder="password"
+          name="password"
+          onChange={handleChange}
+          value={values.password}
+        />
+        <Button type="submit" fluid size="large">
+          Login
+        </Button>
+      </Form>
+    </Container>
   );
 };
 

@@ -24,20 +24,21 @@ const MainNav = () => {
           content="Sign Up"
           onClick={() => setActiveItem("signup")}
         />
-{/*        <Menu.Item
+{/*      <Menu.Item
           name="help"
           active={activeItem === "help"}
           content="Help"
           onClick={() => setActiveItem("help")}
         />
+        */}
         <Menu.Item
-          as={Link}
-          to="/doctors"
-          name="doctors"
+          as={A}
+          href="/"
+          name="home"
           active={activeItem === "doctors"}
-          content="Doctors"
+          content="Home"
           onClick={() => setActiveItem("doctors")}
-        />*/}
+        />
       </Container>
     </Menu>
   );

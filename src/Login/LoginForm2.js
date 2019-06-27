@@ -1,55 +1,62 @@
-import React, { useState } from 'react';
-import {
-  Button,
-  Form,
-  Container,
-  Header
-} from 'semantic-ui-react';
+import React, { useCallback, useState } from "react";
 
-const LoginForm = props => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+const useFormHandler = initialState => {
+  const [values, setValues] = useState(initialState);
+
+  const handleChange = useCallback(
+    ({ target: { name, value } }) =>
+      setValues(prevState => ({ ...prevState, [name]: value })),
+    []
+  );
+
+  return {
+    handleChange,
+    values
+  };
+};
+]
+
+const LoginForm = () => {
+  const { values, handleChange } = useFormHandler({
+    username: "",
+    password: ""
+  });
+
+  const [rememberUser, toggleRememberUser] = useToggle(false);
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    const formProps = { ...values, rememberUser };
+    alert(JSON.stringify(formProps, null, 4));
+  };
 
   return (
-    <Container style={{ height: "100vh" }}>
-      <Header as="h2" color="teal" textAlign="center">
-        Log In
-      </Header>
-
-      <Form
-        size="large"
-        onSubmit={e => {
-          e.preventDefault();
-          props.onSubmit({ username, password });
-          setUsername("");
-          setPassword("");
-        }}
-      >
-        <Form.Input
-          fluid
-          icon="user"
-          iconPosition="left"
-          type="text"
-          placeholder="username"
-          name="username"
-          onChange={e => setUsername(e.target.value)}
-          value={username}
-        />
-        <Form.Input
-          fluid
-          icon="lock"
-          iconPosition="left"
-          type="password"
-          placeholder="password"
-          name="password"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-        />
-        <Button type="submit" fluid size="large">
-          Login
-        </Button>
-      </Form>
-    </Container>
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        name="username"
+        placeholder="Username"
+        onChange={handleChange}
+        value={values.username}
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        onChange={handleChange}
+        value={values.password}
+      />
+      <label htmlFor="rememberUser">Remember Me</label>
+      <input
+        name="rememberUser"
+        checked={rememberUser}
+        onChange={toggleRememberUser}
+        type="checkbox"
+        value={rememberUser}
+      />
+      <a href="#">Forgot Password</a>
+      <button type="submit">Log in</button>
+    </form>
   );
 };
 

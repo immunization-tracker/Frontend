@@ -42,3 +42,4 @@ const DoctorsHome = () => {
 };
 
 export default DoctorsHome;
+

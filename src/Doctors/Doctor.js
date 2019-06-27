@@ -3,11 +3,12 @@ import { Card, Button } from "semantic-ui-react";
 import axios from "axios";
 import AxiosAuth from "../AxiosAuth";
 
-const Doctor = ({ doctor }) => {
-
+const Doctor = props => {
+  const id = props.id;
   const [data, setData] = useState([]);
   const [url, setUrl] = useState(
-    "https://immu-tracker2.herokuapp.com/api/doctors"
+    `https://immu-tracker2.herokuapp.com/api/${id}/records`,
+    id
   );
   const [isLoading, setIsLoading] = useState(false);
 
@@ -22,10 +23,32 @@ const Doctor = ({ doctor }) => {
     fetchData();
   }, []);
   return (
-    <Card>
+    <Card.Group>
+      {data.map(d => (
+        <Card key={d.record_id} doctor={d}>
+          <Card.Content
+            header={d.patient_name}
+            meta={d.Doctor }
+            description={d.DOB}
+          />
+          <Card.Content extra>
+            <div className="ui two buttons">
+              <Button >x</Button>
+            </div>
+          </Card.Content>
+        </Card>
+      ))}
+    </Card.Group>
+  );
+};
+
+export default Doctor;
+
+{
+  /*    <Card>
       <Card.Content
-        header={doctor.name}
-        meta={doctor.username}
+        header={props.name}
+        meta={props.username}
         description={`Welcome dr!`}
       />
       <Card.Content extra>
@@ -33,11 +56,5 @@ const Doctor = ({ doctor }) => {
           <Button>Go to Patients</Button>
         </div>
       </Card.Content>
-    </Card>
-  );
-};
-
-export default Doctor;
-
-/doctor/${props.match.params.id}
-//`https://immu-tracker2.herokuapp.com/api/${d.id}/records`
+    </Card>*/
+}

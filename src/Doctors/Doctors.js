@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import AxiosAuth from "../AxiosAuth";
 import { Card, Button, Loader, Header } from "semantic-ui-react";
+import { useRoutes, useRedirect, navigate, A, usePath ,setLinkProps} from "hookrouter";
 
 const Doctors = () => {
   const [data, setData] = useState([]);
@@ -31,7 +32,7 @@ const Doctors = () => {
       ) : (
         <Card.Group>
           {data.map(d => (
-            <Card key={d.id}>
+            <Card key={d.id} doctor={d}>
               <Card.Content
                 header={d.name}
                 meta={d.username}
@@ -39,15 +40,18 @@ const Doctors = () => {
               />
               <Card.Content extra>
                 <div className="ui two buttons">
+                <a {...setLinkProps({href: `/doctor/${d.id}`})}>
                   <Button
-                    onClick={() =>
-                      setUrl(
-                        `https://immu-tracker2.herokuapp.com/api/${d.id}/records`
-                      )
-                    }
+
+                    // onClick={() =>
+                    //   setUrl(
+                    //     `https://immu-tracker2.herokuapp.com/api/${d.id}/records`
+                    //   )
+                   // }
                   >
                     Go to Patients
                   </Button>
+                  </a>
                 </div>
               </Card.Content>
             </Card>
