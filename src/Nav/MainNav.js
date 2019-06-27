@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, Button, Container } from "semantic-ui-react";
 
 const MainNav = () => {
-  const [activeItem, setActiveItem] = useState("login");
+  const [activeItem, setActiveItem] = useState("");
 
   return (
     <Menu>

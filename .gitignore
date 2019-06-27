@@ -19,8 +19,7 @@ yarn-debug.log*
 yarn-error.log*
 
 src/assets/fomantic/dist/
-src/assets/fomantic/tasks/
-src/assets/fomantic/
+
 
 src/z_archived
 

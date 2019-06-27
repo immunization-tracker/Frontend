@@ -7,6 +7,7 @@ const useDataApi = (initialLogin, initialData) => {
   const [isError, setIsError] = useState(false);
   const [data, setData] = useState(initialData);
   const [logins, setLogins] = useState(initialLogin);
+  const [loggedIn, setLoggedIn] = useState(false);  
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +22,7 @@ const useDataApi = (initialLogin, initialData) => {
         setData(result.data);
         console.log(result);
         localStorage.setItem("Token", result.data.token);
+        setLoggedIn(true);
       } catch (error) {
         setIsError(true);
       }
@@ -31,6 +33,6 @@ const useDataApi = (initialLogin, initialData) => {
     fetchData();
   }, [logins]);
 
-  return [{ data, isLoading, isError }, setLogins];
+  return [{ data, isLoading, isError,setLoggedIn }, setLogins];
 };
 export default useDataApi;

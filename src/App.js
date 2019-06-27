@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect} from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "./assets/fomantic/dist/semantic.css";
 import { Container } from "semantic-ui-react";
@@ -13,6 +13,20 @@ import Doctor from "./Doctors/Doctor";
 //import Patients from './Patients/Patients';
 
 const App = () => {
+  const [initialized, setInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!initialized) {
+      const token = localStorage.getItem('Token');
+      if(token ) {
+        setInitialized(true);
+
+      }
+      
+      
+    }
+  });
+
   return (
     <Container style={{ margin: 20 }}>
       <Route path="/" component={MainNav} />

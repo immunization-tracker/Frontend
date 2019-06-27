@@ -1,21 +1,25 @@
 import AxiosAuth from "../AxiosAuth";
 import axios from "axios";
 import React, { Fragment, useState, useEffect } from "react";
+import { Route, Redirect, withRouter } from 'react-router-dom';
 import useDataApi from "./useDataApi";
-import { Button, Form, Container, Header } from "semantic-ui-react";
+import { Button, Form, Container, Header, Grid } from "semantic-ui-react";
 
 const Login = () => {
   const logins = {
-    username: "bryant",
-    password: "pass"
+    username: "",
+    password: ""
   };
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [{ data, isLoading, isError }, doFetch] = useDataApi(logins, {
+  const [{ data, isLoading, isError,setLoggedIn }, doFetch] = useDataApi(logins, {
     res: []
   });
   return (
-    <Container style={{ height: "100vh" }}>
+    <>
+    {setLoggedIn ? ( <Redirect to="/doctors" /> ) : (
+    <Grid style={{ height: "100vh" }}>
+    <Grid.Column style={{ maxWidth: 450 }}>
       <Header as="h2" color="teal" textAlign="center">
         Log In
       </Header>
@@ -51,7 +55,10 @@ const Login = () => {
           Login
         </Button>
       </Form>
-    </Container>
+      </Grid.Column>  
+    </Grid>
+    )}
+    </>
   );
 };
 
