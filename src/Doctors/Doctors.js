@@ -19,7 +19,7 @@ const Doctors = () => {
     };
 
     fetchData();
-  }, [url]);
+  }, []);
 
   return (
     <Fragment>

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Container, Button, Loader, Header } from "semantic-ui-react";
+import { Container, Button, Icon, Header } from "semantic-ui-react";
 
-export default Homepage = () => (
-  <Container text>
+export const Welcome = () => (
+  <Container style={{ height: "100vh" }}>
     <Header
       as='h1'
       content='Welcome to Immunizations Tracking'
@@ -24,9 +24,9 @@ export default Homepage = () => (
         marginTop:  '1.5em',
       }}
     />
-    <Button primary size='huge'>
+{/*    <Button primary size='huge'>
       Get Started
       <Icon name='right arrow' />
-    </Button>
+    </Button>*/}
   </Container>
 );
