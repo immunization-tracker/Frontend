@@ -19,8 +19,6 @@ const useFormHandler = initialState => {
   };
 };
 
-
-
 const Login = () => {
   const { values, handleChange } = useFormHandler({
     username: "",

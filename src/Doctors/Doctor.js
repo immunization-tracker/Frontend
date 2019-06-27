@@ -44,17 +44,4 @@ const Doctor = props => {
 
 export default Doctor;
 
-{
-  /*    <Card>
-      <Card.Content
-        header={props.name}
-        meta={props.username}
-        description={`Welcome dr!`}
-      />
-      <Card.Content extra>
-        <div className="ui two buttons">
-          <Button>Go to Patients</Button>
-        </div>
-      </Card.Content>
-    </Card>*/
-}
+

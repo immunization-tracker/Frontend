@@ -1,15 +1,17 @@
 import React from "react";
 import useSignUpForm from "./useSignUpForm";
 import { Button, Form, Container, Header } from "semantic-ui-react";
+import axios from "axios";
+import AxiosAuth from "../AxiosAuth";
 
 const SignUp = () => {
   const signup = () => {
-    alert(`User Created! 
-Name: ${inputs.name} ${inputs.username}
-pass: ${inputs.password}`);
+    const result =  AxiosAuth().post('https://immu-tracker2.herokuapp.com/api/records', inputs);
+    console.log(result);
+
   };
   const { inputs, handleInputChange, handleSubmit } = useSignUpForm(
-    { firstName: "", lastName: "", email: "", password1: "", password2: "" },
+    { username: "", password: "", name: ""},
     signup
   );
   return (
@@ -67,3 +69,4 @@ pass: ${inputs.password}`);
 };
 
 export default SignUp;
+
