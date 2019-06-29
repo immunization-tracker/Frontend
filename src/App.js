@@ -11,7 +11,7 @@ import Doctors from "./Doctors/Doctors";
 //import DoctorsHome from "./Doctors/DoctorsHome";
 import Doctor from "./Doctors/Doctor";
 import {Welcome} from "./Welcome/Welcome";
-//import Patients from './Patients/Patients';
+import Patient from './Patients/Patient';
 
 
 
@@ -20,8 +20,9 @@ const routes = {
   "/login": () => <Login />,
   "/signup": () => <SignUp />,
   "/doctors": () => <Doctors />,
-  '/doctor/:id': ({id}) => <Doctor id={id}/>
-  
+  '/doctor/:id': ({id}) => <Doctor id={id}/>,
+  '/patient/:id': ({id}) => <Patient id={id}/>,
+
 };
 
 const NotFoundPage = () => {

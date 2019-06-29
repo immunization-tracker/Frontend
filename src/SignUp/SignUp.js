@@ -6,9 +6,11 @@ import AxiosAuth from "../AxiosAuth";
 
 const SignUp = () => {
   const signup = () => {
-    const result =  AxiosAuth().post('https://immu-tracker2.herokuapp.com/api/records', inputs);
+    const result = AxiosAuth().post(
+      "https://immu-tracker2.herokuapp.com/api/staff/register",
+      inputs
+    );
     console.log(result);
-
   };
   const { inputs, handleInputChange, handleSubmit } = useSignUpForm(
     { username: "", password: "", name: ""},
@@ -69,4 +71,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-

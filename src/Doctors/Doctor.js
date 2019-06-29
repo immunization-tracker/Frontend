@@ -5,7 +5,7 @@ import AxiosAuth from "../AxiosAuth";
 
 const Doctor = props => {
   const id = props.id;
-  const [data, setData] = useState([]);
+  const [users, setUsers] = useState([]);
   const [url, setUrl] = useState(
     `https://immu-tracker2.herokuapp.com/api/${id}/records`,
     id
@@ -16,24 +16,45 @@ const Doctor = props => {
     const fetchData = async () => {
       setIsLoading(true);
       const result = await AxiosAuth().get(url);
-      setData(result.data);
+      setUsers(result.data);
       setIsLoading(false);
     };
 
     fetchData();
   }, []);
+
+  const deleteUser = id => {
+    setEditing(false);
+
+    setUsers(users.filter(user => user.id !== id));
+  };
+
+  const updateUser = (id, updatedUser) => {
+    setEditing(false);
+
+    setUsers(users.map(user => (user.id === id ? updatedUser : user)));
+  };
+
+  //const [users, setUsers] = useState(usersData);
+  const [currentUser, setCurrentUser] = useState('');
+  const [editing, setEditing] = useState(false);
+
   return (
     <Card.Group>
-      {data.map(d => (
-        <Card key={d.record_id} doctor={d}>
+      {users.map(p => (
+        <Card key={p.record_id} doctor={p}>
           <Card.Content
-            header={d.patient_name}
-            meta={d.Doctor }
-            description={d.DOB}
+            header={p.patient_name}
+            meta={p.Doctor}
+            description={p.DOB}
+            fluid
+            icon="user"
+            iconPosition="left"
           />
           <Card.Content extra>
             <div className="ui two buttons">
-              <Button >x</Button>
+              <Button onClick={() => deleteUser(p)}>x</Button>
+              <Button>y</Button>
             </div>
           </Card.Content>
         </Card>
@@ -43,5 +64,3 @@ const Doctor = props => {
 };
 
 export default Doctor;
-
-

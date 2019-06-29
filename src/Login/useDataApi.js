@@ -16,7 +16,7 @@ const useDataApi = (initialLogin, initialData) => {
 
       try {
         const result = await axios.post(
-          "https://immu-tracker2.herokuapp.com/api/staff/login",
+          "",
           logins
         );
         setData(result.data);
