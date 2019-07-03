@@ -1,50 +1,34 @@
-import React, { useState, useEffect,useContext } from "react";
-import { useRoutes, useRedirect, navigate, A , usePath} from "hookrouter";
+import React, { useState, useEffect, useContext } from "react";
+import { useRoutes, useRedirect, navigate, A, usePath } from "hookrouter";
 import "./assets/fomantic/dist/semantic.css";
 import { Container } from "semantic-ui-react";
-import PrivateRoute from "./PrivateRoute";
-import { RootContext } from './auth/RootContext';
+import { Switch, Route } from "react-router-dom";
+import PrivateRouteWithProps from './PrivateRouteWithProps';
 import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import MainNav from "./Nav/MainNav";
 import Doctors from "./Doctors/Doctors";
-//import DoctorsHome from "./Doctors/DoctorsHome";
 import Doctor from "./Doctors/Doctor";
-import {Welcome} from "./Welcome/Welcome";
-import Patient from './Patients/Patient';
-
-
-
-const routes = {
-  "/": () => <Welcome />,
-  "/login": () => <Login />,
-  "/signup": () => <SignUp />,
-  "/doctors": () => <Doctors />,
-  '/doctor/:id': ({id}) => <Doctor id={id}/>,
-  '/patient/:id': ({id}) => <Patient id={id}/>,
-
-};
-
-const NotFoundPage = () => {
-  const path = usePath();
-  return (
-    <React.Fragment>
-      <h3>404 - Not Found</h3>
-      <p>Current path: {path}</p>
-    </React.Fragment>
-  );
-};
+import { Welcome } from "./Welcome/Welcome";
+import Patient from "./Patients/Patient";
 
 const App = () => {
-  const { authenticated } = useContext(RootContext);
+  
   return (
     <Container style={{ margin: 20 }}>
-      <MainNav />
-      {useRoutes(routes)}
+    <Route path='/' component={MainNav} />
+    <Switch>
+    
+    <Route exact path='/' component={Welcome} />
+    <Route exact path='/login' component={Login} />  
+    <Route exact path='/signup' component={SignUp} />  
+    <PrivateRouteWithProps exact path='/doctors' component={Doctors} />
+    <PrivateRouteWithProps exact path='/doctor/:id' component={Doctor} />  
+<PrivateRouteWithProps exact path='/patient/:id' component={Patient} />      
+    </Switch>
     </Container>
   );
 };
 
 export default App;
-
 

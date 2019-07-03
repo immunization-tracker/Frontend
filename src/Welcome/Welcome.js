@@ -3,9 +3,10 @@ import { Container, Button, Icon, Header } from "semantic-ui-react";
 import Doctors from "../Doctors/Doctors";
 import { useRoutes, useRedirect, navigate, A, usePath } from "hookrouter";
 import { RootContext } from "../auth/RootContext";
+import { Link } from "react-router-dom";
 
-export const Welcome = () => {
-  const { authenticated } = useContext(RootContext);
+export const Welcome = (props) => {
+  //const { authenticated } = useContext(RootContext);
   return (
     <Container style={{ height: "100vh" }}>
       <Header
@@ -29,26 +30,26 @@ export const Welcome = () => {
           marginTop: "1.5em"
         }}
       />
-      {authenticated ?   (
+      <div className="ui two buttons">
         <React.Fragment>
-          <A href="/doctors">
+          <Link to={"/login"}>
             <Button primary size="huge">
-              See Providers
+              Login
               <Icon name="right arrow" />
             </Button>
-          </A>
+          </Link>
         </React.Fragment>
-      ): (
+      
         <React.Fragment>
-          <A href="/signup">
+          <Link to={"/signup"}>
             <Button primary size="huge">
               Sign Up
               <Icon name="right arrow" />
             </Button>
-          </A>
+          </Link>
         </React.Fragment>
-      )
-    }
+        </div>
+      
     </Container>
   );
 };

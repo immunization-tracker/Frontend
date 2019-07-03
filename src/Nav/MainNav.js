@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Button, Container } from "semantic-ui-react";
-import { A } from "hookrouter";
+import { A, navigate } from "hookrouter";
+
 const MainNav = () => {
   const [activeItem, setActiveItem] = useState("");
 
@@ -9,39 +10,62 @@ const MainNav = () => {
     <Menu>
       <Container>
         <Menu.Item
-          as={A}
-          href="/login"
+          as={Link}
+          to="/"
+          name="home"
+          active={activeItem === "home"}
+          content="Home"
+          onClick={() => setActiveItem("home")}
+        />
+        <Menu.Item
+          as={Link}
+          to="/login"
           name="login"
           active={activeItem === "login"}
           content="Login"
           onClick={() => setActiveItem("login")}
         />
         <Menu.Item
-          as={A}
-          href="/signup"
+          as={Link}
+          to="/signup"
           name="signup"
           active={activeItem === "signup"}
           content="Sign Up"
           onClick={() => setActiveItem("signup")}
         />
-{/*      <Menu.Item
-          name="help"
-          active={activeItem === "help"}
-          content="Help"
-          onClick={() => setActiveItem("help")}
-        />
-        */}
+
         <Menu.Item
-          as={A}
-          href="/"
-          name="home"
-          active={activeItem === "doctors"}
-          content="Home"
-          onClick={() => setActiveItem("doctors")}
+          name="logout"
+          active={activeItem === "logout"}
+          content="Logout"
+          onClick={() => {
+            localStorage.clear();
+            navigate("/");
+          }}
         />
+        <Menu.Item
+          as={Link}
+          to="/doctors"
+          name="doctors"
+          active={activeItem === "doctors"}
+          content="Doctors"
+          onClick={() => setActiveItem("doctors")}
+        />        
       </Container>
     </Menu>
   );
 };
 
 export default MainNav;
+
+// {props.loggedIn && (
+//   <Button
+//     onClick={() => {
+//       localStorage.clear();
+//       props.logOut();
+//       props.history.push('/');
+//     }}
+//   >
+//     Log Out
+//   </Button>
+// )}

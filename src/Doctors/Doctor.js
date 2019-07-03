@@ -1,15 +1,21 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { Card, Button } from "semantic-ui-react";
 import axios from "axios";
 import AxiosAuth from "../AxiosAuth";
+import { setLinkProps } from "hookrouter";
+import Patient from "../Patients/Patient";
+import useRouteProps from "../UseRouteProps";
+import RouterContext from "../RouterContext";
 
 const Doctor = props => {
-  const id = props.id;
+  const routeProps = {
+    match: props.match,
+    history: props.history,
+    location: props.location
+  };
+  const id = props.match.params.id;
   const [users, setUsers] = useState([]);
-  const [url, setUrl] = useState(
-    `https://immu-tracker2.herokuapp.com/api/${id}/records`,
-    id
-  );
+  const [url, setUrl] = useState(`http://localhost:4000/api/${id}/records`, id);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -23,43 +29,53 @@ const Doctor = props => {
     fetchData();
   }, []);
 
-  const deleteUser = id => {
-    setEditing(false);
-
-    setUsers(users.filter(user => user.id !== id));
+  const deleteUser = e => {
+    setUsers(users.filter(user => user.record_id !== e));
+    setCurrentUser("");
   };
 
-  const updateUser = (id, updatedUser) => {
-    setEditing(false);
-
-    setUsers(users.map(user => (user.id === id ? updatedUser : user)));
+  const handleUser = e => {
+    setCurrentUser(e);
+    setEditing(e);
+    console.log(editing);
+  };
+  const handleRevise = e => {
+    setRevising(e);
+    console.log(editing);
   };
 
-  //const [users, setUsers] = useState(usersData);
-  const [currentUser, setCurrentUser] = useState('');
-  const [editing, setEditing] = useState(false);
+const [revisedUser, setRevisedUser] = useState([]);
+
+  const reviseUser = (id, updatedUser) => {
+    //setEditing(false);
+
+    setUsers(users.map(user => (user.record_id === id ? updatedUser : user)));
+  };
+
+  const [currentUser, setCurrentUser] = useState("");
+  const [editing, setEditing] = useState(null);
+  const [revising, setRevising] = useState(null);
 
   return (
-    <Card.Group>
-      {users.map(p => (
-        <Card key={p.record_id} doctor={p}>
-          <Card.Content
-            header={p.patient_name}
-            meta={p.Doctor}
-            description={p.DOB}
-            fluid
-            icon="user"
-            iconPosition="left"
-          />
-          <Card.Content extra>
-            <div className="ui two buttons">
-              <Button onClick={() => deleteUser(p)}>x</Button>
-              <Button>y</Button>
-            </div>
-          </Card.Content>
-        </Card>
-      ))}
-    </Card.Group>
+    <RouterContext.Provider value={routeProps}>
+      <Card.Group>
+        {users.map((p, index) => (
+          <Patient
+            key={index}
+            id={p.record_id}
+            patient={p}
+            handleUser={handleUser}
+            editing={editing}
+            deleteUser={deleteUser}
+            setRevising={setRevising}
+            revising={revising}
+            setRevisedUser={setRevisedUser}
+            revisedUser={revisedUser}
+            reviseUser={reviseUser}
+          ></Patient>
+        ))}
+      </Card.Group>
+    </RouterContext.Provider>
   );
 };
 

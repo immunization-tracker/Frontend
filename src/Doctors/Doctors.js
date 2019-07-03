@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import AxiosAuth from "../AxiosAuth";
 import { Card, Button, Loader, Header } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 import {
   useRoutes,
   useRedirect,
@@ -11,21 +12,28 @@ import {
   setLinkProps
 } from "hookrouter";
 
-const Doctors = () => {
+import RouterContext from "../RouterContext";
+
+const Doctors = props => {
+  const routeProps = {
+    match: props.match,
+    history: props.history,
+    location: props.location
+  };
+
+  const url = "http://localhost:4000/api/doctors";
   const [data, setData] = useState([]);
-  const [url, setUrl] = useState(
-    "https://immu-tracker2.herokuapp.com/api/doctors"
-  );
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      setIsLoading(true);
-      const result = await AxiosAuth().get(url);
-      setData(result.data);
-      setIsLoading(false);
-    };
+  const fetchData = async () => {
+    setIsLoading(true);
+    const result = await AxiosAuth().get(url);
+    const { data } = await result;
+    setData(data);
+    setIsLoading(false);
+  };
 
+  useEffect(() => {
     fetchData();
   }, []);
 
@@ -39,7 +47,7 @@ const Doctors = () => {
       ) : (
         <Card.Group>
           {data.map(d => (
-            <Card key={d.id} doctor={d}>
+            <Card key={d.id} doctorData={d}>
               <Card.Content
                 header={d.name}
                 meta={d.username}
@@ -47,9 +55,10 @@ const Doctors = () => {
               />
               <Card.Content extra>
                 <div className="ui two buttons">
-                  <a {...setLinkProps({ href: `/doctor/${d.id}` })}>
+                  <Link to={`/doctor/${d.id}`} id={d.id}>
                     <Button>Go to Patients</Button>
-                  </a>
+                  </Link>
+                  }
                 </div>
               </Card.Content>
             </Card>

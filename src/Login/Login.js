@@ -2,12 +2,11 @@ import AxiosAuth from "../AxiosAuth";
 import axios from "axios";
 import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { useRoutes, useRedirect, navigate, A, usePath } from "hookrouter";
-import useDataApi from "./useDataApi";
+
 import { Button, Form, Container, Header } from "semantic-ui-react";
 
 const useFormHandler = initialState => {
   const [values, setValues] = useState(initialState);
-
   const handleChange = useCallback(
     ({ target: { name, value } }) =>
       setValues(prevState => ({ ...prevState, [name]: value })),
@@ -20,7 +19,7 @@ const useFormHandler = initialState => {
   };
 };
 
-const Login = () => {
+const Login = (props) => {
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState("");
@@ -37,11 +36,11 @@ const Login = () => {
       setIsLoading(true);
       try {
         const result = await axios.post(
-          "https://immu-tracker2.herokuapp.com/api/staff/login",
+          "http://localhost:4000/api/staff/login",
           formProps
         );
         console.log(result);
-        localStorage.setItem("token", result.data.token);
+        localStorage.setItem("token", result.data.token)
         
       } catch (error) {
         setIsError(true);
@@ -49,8 +48,9 @@ const Login = () => {
 
       setIsLoading(false);
     };
-    fetchData();
-    navigate("/doctors");
+    fetchData()
+    .then(() => props.history.push('/doctors'));
+    
   };
 
   return (
