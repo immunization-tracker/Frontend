@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { Card, Button } from "semantic-ui-react";
 import axios from "axios";
 import AxiosAuth from "../AxiosAuth";
-import { setLinkProps } from "hookrouter";
 import Patient from "../Patients/Patient";
 import useRouteProps from "../UseRouteProps";
 import RouterContext from "../RouterContext";
@@ -15,7 +14,12 @@ const Doctor = props => {
   };
   const id = props.match.params.id;
   const [users, setUsers] = useState([]);
-  const [url, setUrl] = useState(`http://localhost:4000/api/${id}/records`, id);
+  //const [url, setUrl] = useState(`http://localhost:4000/api/${id}/records`, id);
+  const [url, setUrl] = useState(
+    `https://immu-tracker2.herokuapp.com/api/${id}/records`,
+    id
+  );
+
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -44,7 +48,7 @@ const Doctor = props => {
     console.log(editing);
   };
 
-const [revisedUser, setRevisedUser] = useState([]);
+  const [revisedUser, setRevisedUser] = useState([]);
 
   const reviseUser = (id, updatedUser) => {
     //setEditing(false);

@@ -1,15 +1,10 @@
 import { Card, Button, Form, Header } from "semantic-ui-react";
 import React, { Fragment, useState, useEffect, useCallback } from "react";
 import useRouteProps from "../UseRouteProps";
-import EditPatient from './EditPatient';
-
-
+import EditPatient from "./EditPatient";
 
 const Patient = props => {
   const [match, location, history] = useRouteProps();
-
-
-  
 
   return (
     <Card
@@ -44,11 +39,11 @@ const Patient = props => {
           </div>
 
           {props.revising == props.id ? (
-            <EditPatient 
-            patient={props.patient}
-            reviseUser={props.reviseUser}
-            setRevisedUser={props.setRevisedUser}
-            revisedUser={props.revisedUser}
+            <EditPatient
+              patient={props.patient}
+              reviseUser={props.reviseUser}
+              setRevisedUser={props.setRevisedUser}
+              revisedUser={props.revisedUser}
             />
           ) : (
             <Fragment></Fragment>

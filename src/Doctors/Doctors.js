@@ -1,17 +1,8 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import AxiosAuth from "../AxiosAuth";
-import { Card, Button, Loader, Header } from "semantic-ui-react";
+import { Card, Button, Loader, Icon, Feed } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import {
-  useRoutes,
-  useRedirect,
-  navigate,
-  A,
-  usePath,
-  setLinkProps
-} from "hookrouter";
-
 import RouterContext from "../RouterContext";
 
 const Doctors = props => {
@@ -21,7 +12,9 @@ const Doctors = props => {
     location: props.location
   };
 
-  const url = "http://localhost:4000/api/doctors";
+  //const url = "http://localhost:4000/api/doctors";
+  const url = "https://immu-tracker2.herokuapp.com/api/doctors";
+
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -47,20 +40,25 @@ const Doctors = props => {
       ) : (
         <Card.Group>
           {data.map(d => (
-            <Card key={d.id} doctorData={d}>
-              <Card.Content
-                header={d.name}
-                meta={d.username}
-                description={`Welcome dr!`}
-              />
-              <Card.Content extra>
-                <div className="ui two buttons">
-                  <Link to={`/doctor/${d.id}`} id={d.id}>
-                    <Button>Go to Patients</Button>
-                  </Link>
-                  }
-                </div>
-              </Card.Content>
+            <Card key={d.id}>
+              <Feed>
+                <Feed.Event>
+                  <Feed.Label>
+                    <Icon name="doctor"   />
+                  </Feed.Label>
+
+                  <Feed.Content>
+                    <Feed.Date />
+                    <Feed.Summary>{`Welcome Dr. ${d.username}!`}</Feed.Summary>
+                  
+                
+                  
+                    <Link to={`/doctor/${d.id}`} id={d.id}>
+                      <Button>Go to Patients</Button>
+                    </Link>
+                  </Feed.Content>
+                </Feed.Event>
+              </Feed>
             </Card>
           ))}
         </Card.Group>

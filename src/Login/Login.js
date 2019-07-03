@@ -1,8 +1,6 @@
 import AxiosAuth from "../AxiosAuth";
 import axios from "axios";
 import React, { Fragment, useState, useEffect, useCallback } from "react";
-import { useRoutes, useRedirect, navigate, A, usePath } from "hookrouter";
-
 import { Button, Form, Container, Header } from "semantic-ui-react";
 
 const useFormHandler = initialState => {
@@ -30,15 +28,15 @@ const Login = (props) => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    //const url = 'http://localhost:4000/api/staff/login';
+    const url = 'https://immu-tracker2.herokuapp.com/api/staff/login';
     const formProps = { ...values };
     const fetchData = async () => {
       setIsError(false);
       setIsLoading(true);
       try {
-        const result = await axios.post(
-          "http://localhost:4000/api/staff/login",
-          formProps
-        );
+        const result = 
+        await axios.post(url,formProps);
         console.log(result);
         localStorage.setItem("token", result.data.token)
         
