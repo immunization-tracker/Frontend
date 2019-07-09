@@ -1,7 +1,15 @@
 import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import AxiosAuth from "../AxiosAuth";
-import { Card, Button, Loader, Icon, Feed } from "semantic-ui-react";
+import {
+  Card,
+  Button,
+  Loader,
+  Icon,
+  Feed,
+  Header,
+  Image
+} from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import RouterContext from "../RouterContext";
 
@@ -32,33 +40,31 @@ const Doctors = props => {
 
   return (
     <Fragment>
-      <h1>Welcome Doctors</h1>
+      <Header as="h1">Welcome Doctors</Header>
       {isLoading ? (
         <Fragment>
           <Loader active inline className="slow red" />
         </Fragment>
       ) : (
-        <Card.Group>
+        <Card.Group itemsPerRow={4} centered>
           {data.map(d => (
             <Card key={d.id}>
-              <Feed>
-                <Feed.Event>
-                  <Feed.Label>
-                    <Icon name="doctor"   />
-                  </Feed.Label>
-
-                  <Feed.Content>
-                    <Feed.Date />
-                    <Feed.Summary>{`Welcome Dr. ${d.username}!`}</Feed.Summary>
-                  
-                
-                  
-                    <Link to={`/doctor/${d.id}`} id={d.id}>
-                      <Button>Go to Patients</Button>
-                    </Link>
-                  </Feed.Content>
-                </Feed.Event>
-              </Feed>
+              <Card.Content>
+                <Image floated="right">
+                  <Icon name="doctor" size="huge" color="green" />
+                </Image>
+                <Card.Header>{`${d.username}`}</Card.Header>
+                <Card.Meta>{`Dr. ID #${d.id}`}</Card.Meta>
+                <Card.Description>
+                  {`Welcome Dr. ${d.username}!`}
+                </Card.Description>
+              </Card.Content>
+              <Card.Content extra>
+                <Link to={`/doctor/${d.id}`} id={d.id}>
+                  <Icon name="user" />
+                  Go to Patients
+                </Link>
+              </Card.Content>
             </Card>
           ))}
         </Card.Group>
