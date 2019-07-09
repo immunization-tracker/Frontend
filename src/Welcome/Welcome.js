@@ -4,7 +4,7 @@ import Doctors from "../Doctors/Doctors";
 import { RootContext } from "../auth/RootContext";
 import { Link } from "react-router-dom";
 
-export const Welcome = (props) => {
+export const Welcome = props => {
   return (
     <Container style={{ height: "100vh" }}>
       <Header
@@ -16,7 +16,7 @@ export const Welcome = (props) => {
           fontWeight: "normal",
           marginBottom: 0,
           marginTop: "3em",
-          color:'black'
+          color: "black"
         }}
       />
       <Header
@@ -27,29 +27,23 @@ export const Welcome = (props) => {
           fontSize: "1.7em",
           fontWeight: "normal",
           marginTop: "1.5em",
-          color:'black'
+          color: "black"
         }}
       />
-      
-        
-          <Link to={"/login"}>
-            <Button primary size="huge">
-              Login
-              <Icon name="right arrow" />
-            </Button>
-          </Link>
-        
-      
-        
-          <Link to={"/signup"}>
-            <Button secondary size="huge">
-              Sign Up
-              <Icon name="right arrow" />
-            </Button>
-          </Link>
-        
-        
-      
+
+      <Link to={"/login"}>
+        <Button primary size="huge">
+          Login
+          <Icon name="right arrow" />
+        </Button>
+      </Link>
+
+      <Link to={"/signup"}>
+        <Button secondary size="huge">
+          Sign Up
+          <Icon name="right arrow" />
+        </Button>
+      </Link>
     </Container>
   );
 };

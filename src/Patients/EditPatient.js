@@ -19,6 +19,7 @@ const EditPatient = props => {
     <Form
       onSubmit={e => {
         e.preventDefault();
+        user.id=props.dId;
         props.setRevisedUser(user);
         props.reviseUser(user.record_id, user);
       }}
@@ -46,14 +47,15 @@ const EditPatient = props => {
         name="record_id"
         onChange={handleInputChange}
         value={user.record_id}
-      />   
+      />
       <Form.Input
         type="text"
         placeholder={props.patient.Doctor}
         name="Doctor"
         onChange={handleInputChange}
         value={user.Doctor}
-      />            
+      />
+
       <Button>Confirm Changes</Button>
     </Form>
   );

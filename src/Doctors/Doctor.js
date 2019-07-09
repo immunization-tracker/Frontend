@@ -14,6 +14,7 @@ const Doctor = props => {
   };
   const id = props.match.params.id;
   const [users, setUsers] = useState([]);
+  const [isError, setIsError] = useState(false);
   //const [url, setUrl] = useState(`http://localhost:4000/api/${id}/records`, id);
   const [url, setUrl] = useState(
     `https://immu-tracker2.herokuapp.com/api/${id}/records`,
@@ -36,6 +37,18 @@ const Doctor = props => {
   const deleteUser = e => {
     setUsers(users.filter(user => user.record_id !== e));
     setCurrentUser("");
+    deleteData(e);
+  };
+
+  const deleteData = async (e) => {
+    try {
+      const result = await AxiosAuth().delete(
+        `https://immu-tracker2.herokuapp.com/api/${e}/records`,e
+        
+      );
+    } catch (error) {
+      setIsError(true);
+    }
   };
 
   const handleUser = e => {
@@ -51,10 +64,22 @@ const Doctor = props => {
   const [revisedUser, setRevisedUser] = useState([]);
 
   const reviseUser = (id, updatedUser) => {
-    //setEditing(false);
-
     setUsers(users.map(user => (user.record_id === id ? updatedUser : user)));
+    reviseData(id, updatedUser);
   };
+
+ const reviseData = async (id, updatedUser) => {
+    try {
+      const result = await AxiosAuth().put(
+        `https://immu-tracker2.herokuapp.com/api/${id}/records`, (id, updatedUser)
+        
+      );
+    } catch (error) {
+      setIsError(true);
+    }
+  };
+
+
 
   const [currentUser, setCurrentUser] = useState("");
   const [editing, setEditing] = useState(null);
@@ -66,6 +91,7 @@ const Doctor = props => {
         {users.map((p, index) => (
           <Patient
             key={index}
+            dId={id}
             id={p.record_id}
             patient={p}
             handleUser={handleUser}

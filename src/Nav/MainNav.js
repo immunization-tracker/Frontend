@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Button, Container } from "semantic-ui-react";
-import { A, navigate } from "hookrouter";
 
-const MainNav = () => {
+const MainNav = props => {
   const [activeItem, setActiveItem] = useState("");
 
   return (
@@ -39,8 +38,9 @@ const MainNav = () => {
           active={activeItem === "logout"}
           content="Logout"
           onClick={() => {
-            localStorage.clear();
-            navigate("/");
+            localStorage.clear()
+            //.then(() => props.history.push('/'));
+            
           }}
         />
         <Menu.Item
@@ -57,15 +57,3 @@ const MainNav = () => {
 };
 
 export default MainNav;
-
-// {props.loggedIn && (
-//   <Button
-//     onClick={() => {
-//       localStorage.clear();
-//       props.logOut();
-//       props.history.push('/');
-//     }}
-//   >
-//     Log Out
-//   </Button>
-// )}

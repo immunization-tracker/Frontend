@@ -44,6 +44,7 @@ const Patient = props => {
               reviseUser={props.reviseUser}
               setRevisedUser={props.setRevisedUser}
               revisedUser={props.revisedUser}
+              dId={props.dId}
             />
           ) : (
             <Fragment></Fragment>
