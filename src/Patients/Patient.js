@@ -14,7 +14,7 @@ const Patient = props => {
     >
       <Card.Content>
         <Image floated="right">
-          <Icon name="user" size="huge" color="green" />
+          <Icon name="user" size="huge" color="blue" />
         </Image>
         <Card.Header>{props.patient.patient_name}</Card.Header>
         <Card.Meta>{props.patient.Doctor}</Card.Meta>

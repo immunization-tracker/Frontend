@@ -61,7 +61,7 @@ const Doctors = props => {
               </Card.Content>
               <Card.Content extra>
                 <Link to={`/doctor/${d.id}`} id={d.id}>
-                  <Icon name="user" />
+                  <Icon name="user" color="blue"/>
                   Go to Patients
                 </Link>
               </Card.Content>
