@@ -53,8 +53,8 @@ const Doctors = props => {
                 <Image floated="right">
                   <Icon name="doctor" size="huge" color="green" />
                 </Image>
-                <Card.Header>{`${d.username}`}</Card.Header>
-                <Card.Meta>{`Dr. ID #${d.id}`}</Card.Meta>
+                <Card.Header>{`Dr. ${d.username}`}</Card.Header>
+                <Card.Meta>{`ID #${d.id}`}</Card.Meta>
                 <Card.Description>
                   {`Welcome Dr. ${d.username}!`}
                 </Card.Description>

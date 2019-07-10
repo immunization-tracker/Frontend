@@ -87,7 +87,7 @@ const Doctor = props => {
 
   return (
     <RouterContext.Provider value={routeProps}>
-      <Card.Group>
+      <Card.Group itemsPerRow={2} centered>
         {users.map((p, index) => (
           <Patient
             key={index}

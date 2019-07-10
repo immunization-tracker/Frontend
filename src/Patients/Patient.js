@@ -1,4 +1,4 @@
-import { Card, Button, Form, Header } from "semantic-ui-react";
+import { Card, Button, Form, Header, Image, Icon } from "semantic-ui-react";
 import React, { Fragment, useState, useEffect, useCallback } from "react";
 import useRouteProps from "../UseRouteProps";
 import EditPatient from "./EditPatient";
@@ -12,17 +12,16 @@ const Patient = props => {
         props.handleUser(props.id);
       }}
     >
-      <Card.Content
-        header={props.patient.patient_name}
-        meta={props.patient.Doctor}
-        description={props.patient.DoB}
-        icon="user"
-        iconposition="left"
-      />
-
+      <Card.Content>
+        <Image floated="right">
+          <Icon name="user" size="huge" color="green" />
+        </Image>
+        <Card.Header>{props.patient.patient_name}</Card.Header>
+        <Card.Meta>{props.patient.Doctor}</Card.Meta>
+        <Card.Description>{props.patient.DoB}</Card.Description>
+      </Card.Content>
       {props.editing == props.id ? (
         <Card.Content extra>
-          {console.log(location)}
           <div className="ui two buttons">
             <Button
               onClick={() => {
