@@ -23,3 +23,8 @@ yarn-error.log*
 
 src/z_archived
 
+node_modules/
+src/assets/fomantic/node_modules/
+src/assets/fomantic/dist/
+
+# git rm -r --cached src/assets/fomantic/dist/
