@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import "./assets/fomantic/dist/semantic.css";
+import "./assets/fomantic/dist/semantic.min.css";
 import { Container } from "semantic-ui-react";
 import { Switch, Route } from "react-router-dom";
 import PrivateRouteWithProps from "./PrivateRouteWithProps";
@@ -12,31 +12,19 @@ import { Welcome } from "./Welcome/Welcome";
 import Patient from "./Patients/Patient";
 
 const App = () => {
-    return (
-        <Container style={{ margin: 20 }}>
-            <Route path="/" component={MainNav} />
-            <Switch>
-                <Route exact path="/" component={Welcome} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={SignUp} />
-                <PrivateRouteWithProps
-                    exact
-                    path="/doctors"
-                    component={Doctors}
-                />
-                <PrivateRouteWithProps
-                    exact
-                    path="/doctor/:id"
-                    component={Doctor}
-                />
-                <PrivateRouteWithProps
-                    exact
-                    path="/patient/:id"
-                    component={Patient}
-                />
-            </Switch>
-        </Container>
-    );
+  return (
+    <Container style={{ margin: 20 }}>
+      <Route path="/" component={MainNav} />
+      <Switch>
+        <Route exact path="/" component={Welcome} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={SignUp} />
+        <PrivateRouteWithProps exact path="/doctors" component={Doctors} />
+        <PrivateRouteWithProps exact path="/doctor/:id" component={Doctor} />
+        <PrivateRouteWithProps exact path="/patient/:id" component={Patient} />
+      </Switch>
+    </Container>
+  );
 };
 
 export default App;
