@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import "./assets/fomantic/dist/semantic.min.css";
 import { Container } from "semantic-ui-react";
 import { Switch, Route } from "react-router-dom";
