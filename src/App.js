@@ -1,5 +1,5 @@
 import React from "react";
-import "./assets/fomantic/dist/semantic.min.css";
+import 'semantic-ui-css/semantic.min.css';
 import { Container } from "semantic-ui-react";
 import { Switch, Route } from "react-router-dom";
 import PrivateRouteWithProps from "./PrivateRouteWithProps";
